@@ -1,0 +1,45 @@
+entrada = ""
+vendas = []
+print("\n================ CADASTRO DE VENDAS ================")
+print("Digite no formato: produto, preco, quantidade.")
+print("Digite 'FIM' para gerar o relatório.")
+while entrada.lower() != "fim":
+  entrada = input("Entrada: ")
+  if entrada.lower() != "fim":
+    partes = [item.strip()for item in entrada.split(",")]
+    if (len(partes)) == 3:
+      vendas.append(partes)
+    else:
+      print("Formato inválido")
+
+#----------Processamento-----------------------------------------------------------
+faturamento_total = 0.0
+relatorio_produtos = {}
+
+for item in vendas:
+  nome = item[0].strip().lower()
+  preco_str = item[1].replace("\x7f", "").strip().replace(",", ".")
+  qtd_str = item[2].replace("\x7f", "").strip()
+  preco = float(preco_str)
+  qtd = int(qtd_str)
+  
+  subtotal = preco * qtd
+  faturamento_total += subtotal
+  
+  if nome in relatorio_produtos:
+   relatorio_produtos [nome]["quantidade"] += qtd
+   relatorio_produtos [nome]["subtotal"] += subtotal
+  
+  else:
+   relatorio_produtos[nome] = {
+    "preco_unid": preco,
+    "quantidade": qtd,
+    "subtotal": subtotal
+  }
+
+#----------Relatorio---------------------------------------------------------------
+print("================ RELATÓRIO FINAL ================\n")
+for produto, dados in relatorio_produtos.items():
+  print(f"{produto.title():<20}: {dados['quantidade']:>10} unidade(s) - preço: {dados['preco_unid']:>9.2f} - subtotal: {dados['subtotal']:>9.2f}")
+print("\n-------------------------------------------------")
+print(f"Faturamento Total:  {f'R$ {faturamento_total:.2f}':>19}")
