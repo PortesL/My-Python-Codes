@@ -1,8 +1,41 @@
-## Objetivo:
+saldo = 1000 #no caso de um sistema para a máquina real, o saldo seria definido pelas informaçãoes dadas pelo usuário
+historico = []
+a = ""
+while a != "sair" and a!= "5" and a!= "Sair":
+  print("\n=== BANCO CODÉDEX ===")
+  print("1. Ver Saldo         ")
+  print("2. Depositar         ")
+  print("3. Sacar             ")
+  print("4. Ver Extrato       ")
+  print("5. Sair              ")
+  a = input("\n> ")
+  if a == "1" or a.lower() =="ver saldo":
+   print(f"Saldo vigente: R$ {saldo:.2f}")
+  
+  elif a == "2" or a.lower() == "depositar":
+    valor = float(input("Digite o valor do depósito: R$ "))
+    if valor > 0:
+      saldo += valor
+      historico.append(f"Depósito: {f'+R$':>10}{f'{valor:.2f}'}")
+      print(f"Depósito realizado! Saldo atual: R$ {saldo:.2f}")
+    else:
+      print("Valor inválido para depósito.")
+  elif a == "3" or a.lower() == "sacar":
+    valor = float(input("Digite o valor do saque: R$ "))
+    if 0 < valor <= saldo:
+      saldo -= valor
+      historico.append(f"Saque: {f'-R$':>13}{f'{valor:.2f}'}")
+      print(f"Saque realizado! Saldo atual: R$ {saldo:.2f}")
+    else:
+      print("Saldo insuficiente ou valor inválido.")
 
-Fazer um código em python que simule o sistema de um caixa eletrônico, com as funções: 
-- Ver Saldo
-- Depositar
-- Sacar
-- Ver Extrato
-- Sair
+  elif a == "4" or a.lower() == "ver extrato":
+    print("\n--- EXTRATO ---")
+    if not historico:
+      print("Nenhuma movimentação registrada.")
+    else:
+      for item in historico:
+        print(item)
+    print(f"Saldo final: {f'R$':>6}{f'{saldo:.2f}'}")
+
+print("\nObrigado por utilizar o Banco Codédex!")
