@@ -1,0 +1,8 @@
+## Objetivo:
+
+Fazer um código em python que simule o sistema de um caixa eletrônico, com as funções: 
+- Ver Saldo
+- Depositar
+- Sacar
+- Ver Extrato
+- Sair
